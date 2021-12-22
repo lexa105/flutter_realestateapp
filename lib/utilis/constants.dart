@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 const color_black = Color.fromRGBO(48, 47, 47, 1.0);
 const color_grey = Color.fromRGBO(141, 141, 141, 1.0);
 
+const color_white = Colors.white;
+const color_dark_blue = Color.fromRGBO(20, 25, 45, 1.0);
+
 // ignore: constant_identifier_names
 const texttheme_default = TextTheme(
     headline1: TextStyle(
