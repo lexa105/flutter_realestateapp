@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:realestateapp/screens/landingscreen.dart';
 import 'dart:ui';
 import 'utilis/constants.dart';
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           textTheme: screenWidth < 500 ? texttheme_default : texttheme_small,
           fontFamily: "Montserrat"),
-      home: LandingPage(),
+      home: LandingScreen(),
     );
   }
 }
