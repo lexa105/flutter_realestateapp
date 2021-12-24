@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Episode 1',
       theme: ThemeData(
-          textTheme: screenWidth < 500 ? texttheme_default : texttheme_small,
+          textTheme: screenWidth < 500 ? texttheme_small : texttheme_default,
           fontFamily: "Montserrat"),
       home: LandingScreen(),
     );
