@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:realestateapp/screens/landingscreen.dart';
+import 'package:realestateapp/screens/realestatescreen.dart';
 import 'dart:ui';
 import 'utilis/constants.dart';
 

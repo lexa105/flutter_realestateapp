@@ -1,12 +1,15 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:realestateapp/custom/border_box.dart';
+import 'package:realestateapp/custom/option_button.dart';
 import 'package:realestateapp/utilis/constants.dart';
+import 'package:realestateapp/utilis/custom_functions.dart';
 import 'package:realestateapp/utilis/sample_data.dart';
 import 'package:realestateapp/utilis/widget_functions.dart';
 
 class LandingScreen extends StatelessWidget {
+  const LandingScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -15,80 +18,98 @@ class LandingScreen extends StatelessWidget {
     const sidePadding = EdgeInsets.symmetric(horizontal: padding);
     return SafeArea(
       child: Scaffold(
+        drawer: SideBar(),
         body: Container(
-          height: size.height,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              addVerticalSpace(padding),
-              Padding(
-                padding: sidePadding,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            height: size.height,
+            child: Stack(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BorderBox(
-                      height: 50,
-                      width: 50,
-                      child: Icon(
-                        Icons.menu,
-                        color: color_black,
+                    addVerticalSpace(padding),
+                    Padding(
+                      padding: sidePadding,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          BorderBox(
+                            height: 50,
+                            width: 50,
+                            child: Icon(
+                              Icons.menu,
+                              color: color_black,
+                            ),
+                            onPressed: () {},
+                          ),
+                          BorderBox(
+                            height: 50,
+                            width: 50,
+                            child: Icon(
+                              Icons.settings,
+                              color: color_black,
+                            ),
+                            onPressed: () {},
+                          ),
+                        ],
                       ),
                     ),
-                    BorderBox(
-                      height: 50,
-                      width: 50,
-                      child: Icon(
-                        Icons.settings,
-                        color: color_black,
+                    addVerticalSpace(padding),
+                    Padding(
+                      padding: sidePadding,
+                      child: Text(
+                        "City",
+                        style: themeData.textTheme.bodyText2,
                       ),
                     ),
+                    addVerticalSpace(10),
+                    Padding(
+                      padding: sidePadding,
+                      child: Text(
+                        "Neratovice",
+                        style: themeData.textTheme.headline1,
+                      ),
+                    ),
+                    const Padding(
+                        padding: sidePadding,
+                        child: Divider(
+                          height: padding,
+                          color: color_grey,
+                        )),
+                    addVerticalSpace(10),
+                    SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: buildChoiceOption(),
+                      ),
+                    ),
+                    addVerticalSpace(10),
+                    Expanded(
+                      child: Padding(
+                        padding: sidePadding,
+                        child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: RE_DATA.length,
+                          itemBuilder: (context, index) {
+                            return RealEstateItem(itemData: RE_DATA[index]);
+                          },
+                        ),
+                      ),
+                    )
                   ],
                 ),
-              ),
-              addVerticalSpace(padding),
-              Padding(
-                padding: sidePadding,
-                child: Text(
-                  "City",
-                  style: themeData.textTheme.bodyText2,
-                ),
-              ),
-              addVerticalSpace(10),
-              Padding(
-                padding: sidePadding,
-                child: Text(
-                  "Los Angeles",
-                  style: themeData.textTheme.headline1,
-                ),
-              ),
-              Padding(
-                  padding: sidePadding,
-                  child: Divider(
-                    height: padding,
-                    color: color_grey,
-                  )),
-              addVerticalSpace(10),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: buildChoiceOption(),
-                ),
-              ),
-              addVerticalSpace(10),
-              Expanded(
-                child: Padding(
-                  padding: sidePadding,
-                  child: ListView.builder(
-                    itemCount: RE_DATA.length,
-                    itemBuilder: (context, index) {
-                      return RealEstateItem(itemData: RE_DATA[index]);
-                    },
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
+                Positioned(
+                    bottom: 20,
+                    width: size.width,
+                    child: Center(
+                      child: OptionButton(
+                        icon: Icons.map_rounded,
+                        text: "Map View",
+                        width: size.width * 0.35,
+                      ),
+                    )),
+              ],
+            )),
       ),
     );
   }
@@ -135,6 +156,7 @@ class RealEstateItem extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             children: [
@@ -151,6 +173,7 @@ class RealEstateItem extends StatelessWidget {
                       Icons.favorite_border,
                       color: color_black,
                     ),
+                    onPressed: () {},
                   )),
             ],
           ),
@@ -158,12 +181,48 @@ class RealEstateItem extends StatelessWidget {
           Row(
             children: [
               Text(
-                "${itemData["amount"]}",
+                formatCurrency(itemData["amount"]),
                 style: themeData.textTheme.headline1,
-              )
+              ),
+              addHorizontalSpace(10),
+              Text(
+                "${itemData["address"]}",
+                style: themeData.textTheme.bodyText2,
+              ),
             ],
-          )
+          ),
+          addVerticalSpace(10),
+          Text(
+            "${itemData["bedrooms"]} bedrooms / ${itemData["bathrooms"]} bathrooms / ${itemData["area"]} m2",
+            style: themeData.textTheme.headline5,
+          ),
+          addVerticalSpace(5),
+          //ElevatedButton(onPressed: () {}, child: Text("View More")),
         ],
+      ),
+    );
+  }
+}
+
+class SideBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final _themedata = Theme.of(context);
+    return Drawer(
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            DrawerHeader(
+              child: Text(
+                "Real Estates",
+                style: _themedata.textTheme.headline1,
+              ),
+            ),
+            ListTile(
+              title: Text("Ahoj"),
+            ),
+          ],
+        ),
       ),
     );
   }
