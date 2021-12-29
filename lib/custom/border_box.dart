@@ -30,10 +30,25 @@ class BorderBox extends StatelessWidget {
       fixedSize: Size(height, width),
       padding: padding ?? const EdgeInsets.all(8.0),
     );
-    return ElevatedButton(
+    /*return ElevatedButton(
       onPressed: onPressed,
       style: _style,
       child: Center(child: child),
+    );*/
+
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        color: color_white,
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: color_grey.withAlpha(40), width: 2),
+      ),
+      padding: padding ?? const EdgeInsets.all(8.0),
+      child: InkWell(
+        child: child,
+        onTap: onPressed,
+      ),
     );
   }
 }

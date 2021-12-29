@@ -105,7 +105,7 @@ class LandingScreen extends StatelessWidget {
                       child: OptionButton(
                         icon: Icons.map_rounded,
                         text: "Map View",
-                        width: size.width * 0.35,
+                        width: size.width * 0.4,
                       ),
                     )),
               ],

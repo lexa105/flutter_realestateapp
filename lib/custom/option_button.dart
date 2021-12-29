@@ -23,18 +23,21 @@ class OptionButton extends StatelessWidget {
       width: width,
       child: ElevatedButton(
         style: _buttonstyle,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, color: color_white),
-            addHorizontalSpace(10),
-            Text(
-              text,
-              style: const TextStyle(
-                color: color_white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: color_white),
+              addHorizontalSpace(10),
+              Text(
+                text,
+                style: const TextStyle(
+                  color: color_white,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         onPressed: () {},
       ),
